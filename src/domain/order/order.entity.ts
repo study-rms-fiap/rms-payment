@@ -1,4 +1,9 @@
-import { Column, CreateDateColumn, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  Column,
+  CreateDateColumn,
+  Entity,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
 
 export interface IOrder {
   id: string;
@@ -8,6 +13,7 @@ export interface IOrder {
   updateStatus(status: boolean): void;
 }
 
+@Entity()
 export class Order implements IOrder {
   @PrimaryGeneratedColumn('increment')
   id: string;

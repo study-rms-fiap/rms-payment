@@ -1,4 +1,4 @@
-import { Order } from 'src/domain/order.entity';
+import { Order } from 'src/domain/order/order.entity';
 
 export interface ICreateOrderPresenter {
   orderId: string;

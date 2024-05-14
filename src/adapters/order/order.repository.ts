@@ -1,6 +1,6 @@
 import { InjectRepository } from '@nestjs/typeorm';
 import { IOrderRepositoryPort } from 'src/application/ports/order.repository';
-import { Order } from 'src/domain/order.entity';
+import { Order } from 'src/domain/order/order.entity';
 import { Repository } from 'typeorm';
 
 export class OrderRepository implements IOrderRepositoryPort {
