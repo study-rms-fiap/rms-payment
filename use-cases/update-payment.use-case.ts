@@ -6,10 +6,10 @@ import { PaymentStatus } from 'src/domain/payment/payment.entity';
 export class UpdatePaymentUseCase {
   static async run(
     repo: IPaymentRepositoryPort,
-    orderId: string,
+    paymentId: string,
     paymentStatus: string,
   ) {
-    const payment = await FindPaymentByIdUseCase.run(repo, orderId);
+    const payment = await FindPaymentByIdUseCase.run(repo, paymentId);
 
     if (payment === undefined) {
       throw new BadRequestException('Invalid Payment Id');

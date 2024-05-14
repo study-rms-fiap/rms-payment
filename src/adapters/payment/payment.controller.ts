@@ -16,10 +16,10 @@ export class PaymentController {
 
   @Put('')
   updatePayment(@Body() inputDto: UpdatePaymentDTO) {
-    const { orderId, paymentStatus } = inputDto;
+    const { paymentId, paymentStatus } = inputDto;
     return UpdatePaymentUseCase.run(
       this.paymentRepository,
-      orderId,
+      paymentId,
       paymentStatus,
     );
   }
