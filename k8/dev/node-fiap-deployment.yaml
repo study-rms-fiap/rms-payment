@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: node-fiap-container
-          image: esantiagovieira/rms-api-order:latest
+          image: esantiagovieira/rms-api-payment:latest
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 3000
@@ -36,7 +36,3 @@ spec:
           #   periodSeconds: 10
           #   failureThreshold: 5
           #   #initialDelaySeconds: 20
-      initContainers: #inicia o pod node apos o mysql estiver ok
-        - name: wait-for-mysql
-          image: busybox
-          command: ['sh', '-c', 'until nc -z -w 3 svc-db-order 3306; do sleep 1; done;']

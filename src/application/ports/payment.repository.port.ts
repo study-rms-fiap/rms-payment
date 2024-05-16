@@ -6,4 +6,5 @@ export interface IPaymentRepositoryPort {
   findById(id: string): Promise<IPayment>;
   create(payment: IPayment): Promise<IPayment>;
   update(payment: IPayment): Promise<IPayment>;
+  findByOrderId(orderId: string): Promise<IPayment>;
 }

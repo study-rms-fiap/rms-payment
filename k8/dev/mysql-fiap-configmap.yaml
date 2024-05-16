@@ -4,7 +4,7 @@ metadata:
   name: mysql-fiap-configmap
   namespace: rms
 data:
-  MYSQL_HOST: svc-db-order
+  MONGO_HOST: svc-db-payment
   MARIADB_ROOT_PASSWORD: fiap
   MARIADB_USER: fiap
   MARIADB_PASSWORD: fiap

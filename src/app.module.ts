@@ -7,13 +7,25 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { Payment, PaymentSchema } from './domain/payment/payment.entity';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Order } from './domain/order/order.entity';
+import { config } from 'dotenv';
 
 @Module({
   imports: [
-    MongooseModule.forRoot('mongodb://localhost/payment'),
+    MongooseModule.forRoot(
+      config().parsed['MONGO_HOST'] ||
+        `mongodb://${process.env.MONGO_HOST}/payment`,
+    ),
     MongooseModule.forFeature([{ name: Payment.name, schema: PaymentSchema }]),
   ],
-  controllers: [PaymentController],
+  controllers: [PaymentController, OrderController],
   providers: [PaymentRepository],
 })
-export class AppModule {}
+export class AppModule {
+  constructor() {
+    console.log(
+      'INITIALIZATION MONGO HOST',
+      config().parsed['MONGO_HOST'] ||
+        `mongodb://${process.env.MONGO_HOST}/payment`,
+    );
+  }
+}

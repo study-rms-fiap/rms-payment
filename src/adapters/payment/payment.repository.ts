@@ -34,4 +34,8 @@ export class PaymentRepository implements IPaymentRepositoryPort {
       new: true,
     });
   }
+
+  findByOrderId(orderId: string): Promise<IPayment> {
+    return this.paymentModel.findOne({ orderId: orderId }).exec();
+  }
 }

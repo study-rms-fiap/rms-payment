@@ -7,10 +7,10 @@ metadata:
     app: mysql-fiap
 spec:
   containers:
-    - name: mysql-fiap-container
-      image: mariadb:latest
+    - name: mongo-fiap-container
+      image: mongodb/mongodb-community-server:latest
       ports:
-        - containerPort: 3306
+        - containerPort: 27017
       envFrom:
         - configMapRef:
             name: mysql-fiap-configmap

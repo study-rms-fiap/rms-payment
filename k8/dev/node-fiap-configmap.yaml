@@ -4,7 +4,10 @@ metadata:
   name: node-fiap-configmap
   namespace: rms
 data:
-  HOST_DB: svc-db-order:3306
+  HOST_DB: svc-db-payment
+  MONGO_HOST: svc-db-payment
   USER_DB: root
   PASS_DB: fiap
   DATABASE_DB: order
+  PORT: '3000'
+  RMS_PRODUCTION_URL: ''

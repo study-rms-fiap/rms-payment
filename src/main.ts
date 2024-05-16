@@ -20,7 +20,8 @@ function buildApiDocs(app: NestExpressApplication): void {
 async function bootstrap() {
   const app: NestExpressApplication = await NestFactory.create(AppModule);
   buildApiDocs(app);
-  const port = Number(config().parsed['PORT']);
+  const port = Number(config().parsed['PORT'] || process.env.PORT);
+  console.info(`App assigned to run on port ${port}`);
   await app.listen(port);
   console.info(`App RMS Payment is running on port  ${port}`);
 }
