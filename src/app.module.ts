@@ -18,11 +18,11 @@ import { Admin, Kafka } from 'kafkajs';
         transport: Transport.KAFKA,
         options: {
           client: {
-            clientId: kafka_config().services.payment.clientId,
-            brokers: [kafka_config().broker],
+            clientId: 'payment',
+            brokers: ['broker:9092'],
           },
           consumer: {
-            groupId: kafka_config().services.payment.groupId,
+            groupId: 'payment-consumer',
           },
         },
       },

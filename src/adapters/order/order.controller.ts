@@ -1,13 +1,14 @@
 import { Body, Controller, Inject, Post } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 import { CreateOrderDto } from './dto/create-order.dto';
-import { ClientKafka } from '@nestjs/microservices';
+import { ClientKafka, MessagePattern, Payload } from '@nestjs/microservices';
 import { firstValueFrom } from 'rxjs';
+import { OrderRepository } from './order.repository';
 
 @ApiTags('order')
 @Controller('orders')
 export class OrderController {
-  constructor(@Inject('PAYMENT_API') private readonly kafka: ClientKafka) { }
+  constructor(private orderRepository: OrderRepository) { }
 
   // constructor(
   //   @Inject('order-service')
@@ -25,11 +26,10 @@ export class OrderController {
     // );
   }
 
-  @Post("/test")
+  @Post("/process_payment")
   async runOrder(@Body() input: CreateOrderDto) {
     console.log(' Sending MEssage to TOPIC', input)
-    // const test = this.kafka.send('paymentservice', { ...input })
-    await firstValueFrom(this.kafka.emit('paymentservice', { ...input }))
+    await firstValueFrom(this.orderRepository.emit(input))
     return { nessage: 'ok' }
   }
 }

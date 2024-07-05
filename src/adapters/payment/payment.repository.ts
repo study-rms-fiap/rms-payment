@@ -1,3 +1,4 @@
+import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { IPaymentRepositoryPort } from 'src/application/ports/payment.repository.port';
@@ -7,6 +8,7 @@ import {
   PaymentStatus,
 } from 'src/domain/payment/payment.entity';
 
+Injectable()
 export class PaymentRepository implements IPaymentRepositoryPort {
   constructor(
     @InjectModel(Payment.name) private paymentModel: Model<Payment>,
