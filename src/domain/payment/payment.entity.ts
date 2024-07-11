@@ -1,7 +1,6 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { DateTime } from 'luxon';
 import { SchemaTypes, Types } from 'mongoose';
-import { v4 as uuidv4 } from 'uuid';
 
 export interface IPayment {
   id: Types.ObjectId;
@@ -38,11 +37,11 @@ export class Payment implements IPayment {
   @Prop({ required: true })
   orderId: string;
 
-  constructor(client: string) {
+  constructor(client: string, orderId: string) {
     this.client = client;
+    this.orderId = orderId
     this.lastUpdate = DateTime.utc().toISO();
     this.createdAt = DateTime.utc().toISO();
-    this.orderId = uuidv4();
   }
 
   updateStatus(status: PaymentStatus) {

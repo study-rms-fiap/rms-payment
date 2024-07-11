@@ -2,7 +2,7 @@ import { ApiProperty } from '@nestjs/swagger';
 
 export class UpdatePaymentDTO {
   @ApiProperty()
-  paymentId: string;
+  orderId: string;
 
   @ApiProperty()
   paymentStatus: string;

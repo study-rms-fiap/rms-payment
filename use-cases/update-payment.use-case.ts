@@ -1,15 +1,15 @@
 import { IPaymentRepositoryPort } from 'src/application/ports/payment.repository.port';
-import { FindPaymentByIdUseCase } from './find-payment-by-id.use-case';
 import { BadRequestException } from '@nestjs/common';
 import { PaymentStatus } from 'src/domain/payment/payment.entity';
+import { FindPaymentByOrderIdUseCase } from './find-payment-by-order-id.use-case';
 
 export class UpdatePaymentUseCase {
   static async run(
     repo: IPaymentRepositoryPort,
-    paymentId: string,
+    orderId: string,
     paymentStatus: string,
   ) {
-    const payment = await FindPaymentByIdUseCase.run(repo, paymentId);
+    const payment = await FindPaymentByOrderIdUseCase.run(repo, orderId)
 
     if (payment === undefined) {
       throw new BadRequestException('Invalid Payment Id');
@@ -18,6 +18,10 @@ export class UpdatePaymentUseCase {
     const status = Object.keys(PaymentStatus).find(
       (key) => String(key) === String(paymentStatus),
     );
+
+    if(status === undefined) {
+      throw new BadRequestException('Invalid Payment Status')
+    }
     payment.status = Number(status);
 
     const updatedPayment = await repo.update(payment);

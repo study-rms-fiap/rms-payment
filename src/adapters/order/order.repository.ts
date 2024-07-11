@@ -1,7 +1,5 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { ClientKafka } from '@nestjs/microservices';
-import { IOrderRepositoryPort } from 'src/application/ports/order.repository';
-import { Order } from 'src/domain/order/order.entity';
 
 Injectable()
 export class OrderRepository  {
