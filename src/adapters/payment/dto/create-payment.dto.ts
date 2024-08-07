@@ -6,4 +6,7 @@ export class CreatePaymentDto {
 
   @ApiProperty()
   orderId: string;
+
+  @ApiProperty()
+  amount: number
 }

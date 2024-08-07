@@ -15,6 +15,7 @@ export enum PaymentStatus {
   PENDING = 1,
   PAID = 10,
   CANCELLED = 20,
+  REFUNDED = 30
 }
 
 @Schema()
@@ -37,9 +38,14 @@ export class Payment implements IPayment {
   @Prop({ required: true })
   orderId: string;
 
-  constructor(client: string, orderId: string) {
+  @Prop({ required: true })
+  amount: number;
+
+
+  constructor(client: string, orderId: string, amount: number) {
     this.client = client;
     this.orderId = orderId
+    this.amount = amount;
     this.lastUpdate = DateTime.utc().toISO();
     this.createdAt = DateTime.utc().toISO();
   }

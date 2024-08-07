@@ -22,20 +22,19 @@ function buildApiDocs(app: NestExpressApplication): void {
 async function bootstrap() {
   const app: NestExpressApplication = await NestFactory.create(AppModule);
 
-  // app.connectMicroservice<MicroserviceOptions>({
-  //   transport: Transport.KAFKA,
-  //   options: {
-  //     client: {
-  //       clientId: kafka_config().services.payment.clientId,
-  //       brokers: [kafka_config().broker],
-  //     },
-  //     consumer: {
-  //       groupId: kafka_config().services.payment.groupId,
-  //     },
-  //   },
-  // });
+  app.connectMicroservice<MicroserviceOptions>({
+    transport: Transport.KAFKA,
+    options: {
+      client: {
+        brokers: ['broker:9092'],
+      },
+      consumer: {
+        groupId: 'production-consumer',
+      },
+    },
+  });
 
-  // await app.startAllMicroservices();
+  await app.startAllMicroservices();
 
 
   buildApiDocs(app);

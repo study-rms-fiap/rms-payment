@@ -4,7 +4,7 @@ import { Payment, PaymentStatus } from 'src/domain/payment/payment.entity';
 
 export class CreatePaymentUseCase {
   static run(repo: IPaymentRepositoryPort, payment: CreatePaymentDto) {
-    const newPayment = new Payment(payment.client, payment.orderId);
+    const newPayment = new Payment(payment.client, payment.orderId, payment.amount);
 
     newPayment.updateStatus(PaymentStatus.PENDING);
     return repo.create(newPayment);

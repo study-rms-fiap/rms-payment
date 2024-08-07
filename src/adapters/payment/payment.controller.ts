@@ -8,6 +8,7 @@ import { CreatePaymentUseCase } from 'use-cases/create-payment.use-case';
 import { FindPaymentByStatusUseCase } from 'use-cases/find-payment-by-status.use.case';
 import { PaymentStatus } from 'src/domain/payment/payment.entity';
 import { FindAllPaymentsUseCase } from 'use-cases/find-all-payments.use-case';
+import { EventPattern, Payload } from '@nestjs/microservices';
 
 @ApiTags('Payments')
 @Controller('Payments')
@@ -25,8 +26,8 @@ export class PaymentController {
   }
 
   @Post('')
-  savePayment(@Body() inputDto: CreatePaymentDto) {
-    return CreatePaymentUseCase.run(this.paymentRepository, inputDto);
+  async savePayment(@Body() inputDto: CreatePaymentDto) {
+    return await CreatePaymentUseCase.run(this.paymentRepository, inputDto);
   }
 
   @Get('/paid')
