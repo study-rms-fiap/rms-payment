@@ -8,12 +8,21 @@ import { CreatePaymentUseCase } from 'use-cases/create-payment.use-case';
 import { FindPaymentByStatusUseCase } from 'use-cases/find-payment-by-status.use.case';
 import { PaymentStatus } from 'src/domain/payment/payment.entity';
 import { FindAllPaymentsUseCase } from 'use-cases/find-all-payments.use-case';
-import { EventPattern, Payload } from '@nestjs/microservices';
 
 @ApiTags('Payments')
 @Controller('Payments')
 export class PaymentController {
-  constructor(private readonly paymentRepository: PaymentRepository) {}
+  constructor(private readonly paymentRepository: PaymentRepository) { }
+
+  @Get('')
+  findAllPayments() {
+    return FindAllPaymentsUseCase.run(this.paymentRepository);
+  }
+
+  @Post('')
+  async savePayment(@Body() inputDto: CreatePaymentDto) {
+    return await CreatePaymentUseCase.run(this.paymentRepository, inputDto);
+  }
 
   @Put('')
   updatePayment(@Body() inputDto: UpdatePaymentDTO) {
@@ -25,19 +34,9 @@ export class PaymentController {
     );
   }
 
-  @Post('')
-  async savePayment(@Body() inputDto: CreatePaymentDto) {
-    return await CreatePaymentUseCase.run(this.paymentRepository, inputDto);
-  }
-
   @Get('/paid')
   findPaidPayments() {
     const status = PaymentStatus.PAID.valueOf();
     return FindPaymentByStatusUseCase.run(this.paymentRepository, status);
-  }
-
-  @Get('')
-  findAllPayments() {
-    return FindAllPaymentsUseCase.run(this.paymentRepository);
   }
 }
