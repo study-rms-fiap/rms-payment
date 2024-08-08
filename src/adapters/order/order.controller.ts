@@ -16,7 +16,6 @@ export class OrderController {
 
   @Post("/process_payment")
   async runOrder(@Body() input: ProcessPaymentDto) {
-    console.info('PAYMENT-API: payment information received', input)
     const payment = await UpdatePaymentUseCase.run(this.paymentRepository, input.paymentId, String(input.status))
     await firstValueFrom(this.orderRepository.emit(input))
     return payment
@@ -24,6 +23,7 @@ export class OrderController {
 
   @EventPattern('new_orders')
   async processNewOrder(@Payload() message: CreatePaymentDto) {
+    console.info('------ Queue new_orders ------', message)
     return await CreatePaymentUseCase.run(this.paymentRepository, message)
   }
 }

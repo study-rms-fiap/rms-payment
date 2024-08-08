@@ -1,4 +1,4 @@
-from node:18-alpine
+FROM node:18-alpine as base
 
 # USER node
 
@@ -10,5 +10,7 @@ COPY . .
 
 RUN rm -f .env
 RUN npm install
+
+FROM base as runtime
 
 CMD ["npm", "run", "start"]
